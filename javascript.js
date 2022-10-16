@@ -23,7 +23,7 @@ function createRandomWords(amountOfWords) {
     for (let x = 0; x < amountOfWords; x++) {
         let newWord = getRandomWord();
         let pElement = document.createElement('p');
-        pElement.textContent = newWord;
+        pElement.textContent = `"${newWord},"`;
         wordContainer.appendChild(pElement);
     }
 
@@ -44,7 +44,7 @@ function getFixedWords(amountOfWords, letter) {
     for (let x = 0; amountOfWords != wordsAppended; x++) {
         let randomNumber = Math.floor(Math.random() * letterArray.length);
         let pElement = document.createElement('p');
-        pElement.textContent = letterArray[randomNumber];
+        pElement.textContent = `"${letterArray[randomNumber]},"`;
 
         wordContainer.appendChild(pElement);
         wordsAppended++;
