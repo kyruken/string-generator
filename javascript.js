@@ -12,12 +12,12 @@ async function setWordsArray() {
 }
 
 function createRandomWords(amountOfWords) {
-    const wordContainer = document.createElement('div');
+    let wordContainer = document.createElement('span');
     for (let x = 0; x < amountOfWords; x++) {
         let newWord = getRandomWord();
         let pElement = document.createElement('span');
         if (x != amountOfWords-1) {
-            pElement.textContent = `"${newWord}," `;
+            pElement.textContent = `"${newWord}", `;
 
         }
 
@@ -28,10 +28,10 @@ function createRandomWords(amountOfWords) {
     }
 
     document.body.appendChild(wordContainer);
+
 }
 
 function getFixedWords(amountOfWords, letter) {
-    const wordContainer = document.createElement('div');
     let letterArray = [];
     let wordsAppended = 0;
 
@@ -45,32 +45,23 @@ function getFixedWords(amountOfWords, letter) {
         let randomNumber = Math.floor(Math.random() * letterArray.length);
         let pElement = document.createElement('span');
 
-        if (wordsAppended != amountOfWords-1) {
-            pElement.textContent = `"${letterArray[randomNumber]}, "`;
-        }
-
-        else {
-            pElement.textContent = `"${letterArray[randomNumber]}"`;
-        }
+        pElement.textContent = `"${letterArray[randomNumber]}", `;
 
         wordContainer.appendChild(pElement);
         wordsAppended++;
+
         //remove entry to stop duplicates
-                
         letterArray.splice(randomNumber, 1);
     }
 
-    document.body.appendChild(wordContainer);
-
 }
-
 
 function addGenerateEvent() {
     const generateRandomButton = document.getElementById('generaterandom');
     const generateFixedButton = document.getElementById('generatefixed');
     generateRandomButton.addEventListener('click', function(e){
         e.preventDefault();
-        if (isPreviousGenerated === true){
+        if (isPreviousGenerated === true) {
             document.body.removeChild(document.body.lastElementChild);
             isPreviousGenerated = false;
         }
@@ -80,15 +71,10 @@ function addGenerateEvent() {
 
     generateFixedButton.addEventListener('click', function(e){
         e.preventDefault();
-        if (isPreviousGenerated === true){
-            document.body.removeChild(document.body.lastElementChild);
-            isPreviousGenerated = false;
-        }
         createFixedWords();
         isPreviousGenerated = true;
     })
 }
-
 
 //For first words box input
 function getListInput() {
@@ -101,7 +87,6 @@ function getRandomWord() {
     return wordsArray[randomNumber];
 }
 
-
 function createFixedWords() {
     const termsFieldSet = document.getElementById('termsfieldset');
     const checkboxInputs = termsFieldSet.querySelectorAll('input[type=checkbox]');
@@ -111,8 +96,7 @@ function createFixedWords() {
             let inputLetter = input.id;
             let numberInput = input.nextElementSibling;
             let inputValue = numberInput.value;
-            console.log('went through checkbox inputs');
-
+            document.body.appendChild(wordContainer);
             getFixedWords(inputValue, inputLetter);
             
         }
