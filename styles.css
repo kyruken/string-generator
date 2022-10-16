@@ -1,0 +1,39 @@
+body {
+    width: 100%;
+    height: 100vh;
+    font-family: sans-serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+label {
+    display: block;
+}
+
+#singlefieldset {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#box1 {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.wordslabel {
+    display: flex;
+    align-items: center;
+}
+
+#options > label {
+    display: flex;
+    flex-direction: row;
+    align-items: space-between;
+}
+
+
