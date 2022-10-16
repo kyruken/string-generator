@@ -18,7 +18,7 @@ function addGenerateEvent() {
     })
 }
 
-function createWords(amountOfWords) {
+function createRandomWords(amountOfWords) {
     const wordContainer = document.createElement('div');
     for (let x = 0; x < amountOfWords; x++) {
         let newWord = getRandomWord();
@@ -32,17 +32,29 @@ function createWords(amountOfWords) {
 
 function getFixedWords(amountOfWords, letter) {
     const wordContainer = document.createElement('div');
+    let letterArray = [];
     let wordsAppended = 0;
-    for (let x = 0; amountOfWords != wordsAppended; x++) {
-        if (wordsArray[x].charAt(0) === letter) {
-            let pElement = document.createElement('p');
-            pElement.textContent = wordsArray[x];
-            wordContainer.appendChild(pElement);
-            wordsAppended++;
+
+    for (let x = 0; x < wordsArray.length; x++) {
+        if(wordsArray[x].charAt(0) === letter){
+            letterArray.push(wordsArray[x]);
         }
     }
-    
+
+    for (let x = 0; amountOfWords != wordsAppended; x++) {
+        let randomNumber = Math.floor(Math.random() * letterArray.length);
+        let pElement = document.createElement('p');
+        pElement.textContent = letterArray[randomNumber];
+
+        wordContainer.appendChild(pElement);
+        wordsAppended++;
+        //remove entry to stop duplicates
+                
+        letterArray.splice(randomNumber, 1);
+    }
+
     document.body.appendChild(wordContainer);
+
 
 }
 
