@@ -11,10 +11,16 @@ addGenerateEvent();
 setWordsArray();
 
 function addGenerateEvent() {
-    const generateButton = document.getElementById('generaterandom');
-    generateButton.addEventListener('click', function(e){
+    const generateRandomButton = document.getElementById('generaterandom');
+    const generateFixedButton = document.getElementById('generatefixed');
+    generateRandomButton.addEventListener('click', function(e){
         e.preventDefault();
         createRandomWords(getListInput());
+    })
+
+    generateFixedButton.addEventListener('click', function(e){
+        e.preventDefault();
+        createFixedWords();
     })
 }
 
@@ -70,7 +76,7 @@ function getRandomWord() {
 }
 
 
-function termsFieldSet() {
+function createFixedWords() {
     const termsFieldSet = document.getElementById('termsfieldset');
     const checkboxInputs = termsFieldSet.querySelectorAll('input[type=checkbox]');
 
@@ -86,4 +92,5 @@ function termsFieldSet() {
         }
     })
 }
+
 
