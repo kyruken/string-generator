@@ -29,7 +29,14 @@ function createRandomWords(amountOfWords) {
     for (let x = 0; x < amountOfWords; x++) {
         let newWord = getRandomWord();
         let pElement = document.createElement('p');
-        pElement.textContent = `"${newWord},"`;
+        if (x != amountOfWords-1) {
+            pElement.textContent = `"${newWord},"`;
+
+        }
+
+        else {
+            pElement.textContent = `"${newWord}"`;
+        }
         wordContainer.appendChild(pElement);
     }
 
