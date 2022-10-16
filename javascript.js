@@ -1,36 +1,23 @@
 //All the words are in the words array
 let wordsArray;
+let isPreviousGenerated = false;
+
+addGenerateEvent();
+setWordsArray();
 
 async function setWordsArray() {
     await fetch('https://random-word-api.herokuapp.com/all')
     .then((response) => response.json())
     .then((data) => wordsArray = data);
-    console.log(wordsArray);
-}
-addGenerateEvent();
-setWordsArray();
-
-function addGenerateEvent() {
-    const generateRandomButton = document.getElementById('generaterandom');
-    const generateFixedButton = document.getElementById('generatefixed');
-    generateRandomButton.addEventListener('click', function(e){
-        e.preventDefault();
-        createRandomWords(getListInput());
-    })
-
-    generateFixedButton.addEventListener('click', function(e){
-        e.preventDefault();
-        createFixedWords();
-    })
 }
 
 function createRandomWords(amountOfWords) {
     const wordContainer = document.createElement('div');
     for (let x = 0; x < amountOfWords; x++) {
         let newWord = getRandomWord();
-        let pElement = document.createElement('p');
+        let pElement = document.createElement('span');
         if (x != amountOfWords-1) {
-            pElement.textContent = `"${newWord},"`;
+            pElement.textContent = `"${newWord}," `;
 
         }
 
@@ -56,10 +43,10 @@ function getFixedWords(amountOfWords, letter) {
 
     for (let x = 0; amountOfWords != wordsAppended; x++) {
         let randomNumber = Math.floor(Math.random() * letterArray.length);
-        let pElement = document.createElement('p');
+        let pElement = document.createElement('span');
 
         if (wordsAppended != amountOfWords-1) {
-            pElement.textContent = `"${letterArray[randomNumber]},"`;
+            pElement.textContent = `"${letterArray[randomNumber]}, "`;
         }
 
         else {
@@ -75,8 +62,33 @@ function getFixedWords(amountOfWords, letter) {
 
     document.body.appendChild(wordContainer);
 
-
 }
+
+
+function addGenerateEvent() {
+    const generateRandomButton = document.getElementById('generaterandom');
+    const generateFixedButton = document.getElementById('generatefixed');
+    generateRandomButton.addEventListener('click', function(e){
+        e.preventDefault();
+        if (isPreviousGenerated === true){
+            document.body.removeChild(document.body.lastElementChild);
+            isPreviousGenerated = false;
+        }
+        createRandomWords(getListInput());
+        isPreviousGenerated = true;
+    })
+
+    generateFixedButton.addEventListener('click', function(e){
+        e.preventDefault();
+        if (isPreviousGenerated === true){
+            document.body.removeChild(document.body.lastElementChild);
+            isPreviousGenerated = false;
+        }
+        createFixedWords();
+        isPreviousGenerated = true;
+    })
+}
+
 
 //For first words box input
 function getListInput() {
