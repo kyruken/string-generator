@@ -57,7 +57,14 @@ function getFixedWords(amountOfWords, letter) {
     for (let x = 0; amountOfWords != wordsAppended; x++) {
         let randomNumber = Math.floor(Math.random() * letterArray.length);
         let pElement = document.createElement('p');
-        pElement.textContent = `"${letterArray[randomNumber]},"`;
+
+        if (wordsAppended != amountOfWords-1) {
+            pElement.textContent = `"${letterArray[randomNumber]},"`;
+        }
+
+        else {
+            pElement.textContent = `"${letterArray[randomNumber]}"`;
+        }
 
         wordContainer.appendChild(pElement);
         wordsAppended++;
