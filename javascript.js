@@ -31,7 +31,7 @@ function createRandomWords(amountOfWords) {
 
 }
 
-function getFixedWords(amountOfWords, letter) {
+function getFixedWords(amountOfWords, letter, wordContainer) {
     let letterArray = [];
     let wordsAppended = 0;
 
@@ -56,6 +56,23 @@ function getFixedWords(amountOfWords, letter) {
 
 }
 
+function createFixedWords() {
+    const termsFieldSet = document.getElementById('termsfieldset');
+    const checkboxInputs = termsFieldSet.querySelectorAll('input[type=checkbox]');
+    let wordContainer = document.createElement('span');
+
+    checkboxInputs.forEach(input => {
+        if (input.checked === true) {
+            let inputLetter = input.id;
+            let numberInput = input.nextElementSibling;
+            let inputValue = numberInput.value;
+            getFixedWords(inputValue, inputLetter, wordContainer);
+            document.body.appendChild(wordContainer);
+            
+        }
+    })
+}
+
 function addGenerateEvent() {
     const generateRandomButton = document.getElementById('generaterandom');
     const generateFixedButton = document.getElementById('generatefixed');
@@ -71,6 +88,10 @@ function addGenerateEvent() {
 
     generateFixedButton.addEventListener('click', function(e){
         e.preventDefault();
+        if (isPreviousGenerated === true) {
+            document.body.removeChild(document.body.lastElementChild);
+            isPreviousGenerated = false;
+        }
         createFixedWords();
         isPreviousGenerated = true;
     })
@@ -87,20 +108,5 @@ function getRandomWord() {
     return wordsArray[randomNumber];
 }
 
-function createFixedWords() {
-    const termsFieldSet = document.getElementById('termsfieldset');
-    const checkboxInputs = termsFieldSet.querySelectorAll('input[type=checkbox]');
-
-    checkboxInputs.forEach(input => {
-        if (input.checked === true) {
-            let inputLetter = input.id;
-            let numberInput = input.nextElementSibling;
-            let inputValue = numberInput.value;
-            document.body.appendChild(wordContainer);
-            getFixedWords(inputValue, inputLetter);
-            
-        }
-    })
-}
 
 
